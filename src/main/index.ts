@@ -92,10 +92,39 @@ async function startBooking(_event: unknown, params: LoginInfo) {
   const page = await browser.newPage();
 
   // Navigate the page to a URL
-  await page.goto('https://www.naver.com/');
+  await page.goto('https://prenotami.esteri.it/');
 
   // Set screen size
-  await page.setViewport({ width: 1080, height: 1024 });
+  await page.setViewport({ width: 1920, height: 1024 });
 
-  await page.type('input#query', `Hello ${params.id}, ${params.pw}`);
+  const submitButtonSelector = '.button.primary.g-recaptcha';
+
+  await page.waitForSelector(submitButtonSelector);
+
+  // await page.click(languageSelector);
+
+  // await page.click(languageSelector[1]);
+  console.log('Click language');
+
+  await page.type('#login-email', `${params.id}`);
+  await page.type('#login-password', `${params.pw}`);
+
+  // page.keyboard.press('Enter');
+
+  // await page.click(submitButtonSelector);
+
+  await Promise.all([
+    page.click(submitButtonSelector),
+    page.waitForNavigation({ waitUntil: 'networkidle2' })
+  ]);
+
+  const languageSelector = '[href="/Language/ChangeLanguage?lang=2"]';
+  await page.waitForSelector(languageSelector);
+
+  await page.click(languageSelector);
+
+  const bookSelector = '[href="/Services"]';
+  await page.waitForSelector(bookSelector);
+
+  await page.click(bookSelector);
 }
