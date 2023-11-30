@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Electron</title>
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'"
+    />
+
+    <link href="./assets/styles.css" type="text/css" rel="stylesheet" />
+  </head>
+
+  <body class="bg-gray-500">
+    <div class="bg-red-500">Hello World</div>
+
+    <form id="loginForm">
+      <div>
+        <label for="myId">
+          <span>ID:</span>
+          <input type="text" name="myId" id="myId" />
+        </label>
+        <label for="myPw">
+          <span>PW:</span>
+          <input type="password" name="myPw" id="myPW" />
+        </label>
+      </div>
+
+      <button type="submit" id="start">Go!</button>
+    </form>
+
+    <script type="module" src="./src/renderer.ts"></script>
+    <script type="module" src="./src/example.ts"></script>
+    <script></script>
+  </body>
+</html>
